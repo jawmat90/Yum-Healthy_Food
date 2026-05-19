@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://g0yk56yuupuv"]
+
+[ext_resource type="Script" uid="uid://cwkh07w5whquy" path="res://corn_character.gd" id="1_mkwpp"]
+[ext_resource type="Texture2D" uid="uid://djjww252dx5vf" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 37/enemy_37_idle_1.png" id="2_gj7g4"]
+[ext_resource type="Texture2D" uid="uid://bdru0n6jqheyd" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 37/enemy_37_idle_2.png" id="3_7mneb"]
+[ext_resource type="Texture2D" uid="uid://bmm01oh46tktl" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 37/enemy_37_run_1.png" id="4_cw70d"]
+[ext_resource type="Texture2D" uid="uid://dbynrhuk1a8jt" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 37/enemy_37_run_2.png" id="5_3ul65"]
+[ext_resource type="Texture2D" uid="uid://b64y1gc1yxw1m" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 37/enemy_37_run_3.png" id="6_dq776"]
+[ext_resource type="Texture2D" uid="uid://cbwpsfpnkqaa0" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 37/enemy_37_run_4.png" id="7_lgobi"]
+[ext_resource type="Texture2D" uid="uid://dpt2w87rshxjt" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 37/enemy_37_walk_1.png" id="8_fmmyi"]
+[ext_resource type="Texture2D" uid="uid://deg5ua0p7sl4y" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 37/enemy_37_walk_2.png" id="9_3cy14"]
+[ext_resource type="Texture2D" uid="uid://0h7mn1lst7b1" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 37/enemy_37_walk_3.png" id="10_xesb2"]
+[ext_resource type="Texture2D" uid="uid://h4idk5hu8d32" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 37/enemy_37_walk_4.png" id="11_rnxw7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_54d4r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_gj7g4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7mneb")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_cw70d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3ul65")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_dq776")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_lgobi")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_fmmyi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_3cy14")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_xesb2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_rnxw7")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 15.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j11r5"]
+height = 20.0
+
+[node name="corn_man" type="CharacterBody2D" unique_id=454267213]
+script = ExtResource("1_mkwpp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1161574681]
+sprite_frames = SubResource("SpriteFrames_54d4r")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2205594]
+position = Vector2(0, 5)
+shape = SubResource("CapsuleShape2D_j11r5")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=940268295]
+zoom = Vector2(2, 2)

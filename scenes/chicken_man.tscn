@@ -1,0 +1,116 @@
+[gd_scene format=3 uid="uid://bq06kfq3hrgow"]
+
+[ext_resource type="Texture2D" uid="uid://cy4es8r13f3bo" path="res://Little Chicken Assets/Player/Idle/idle_1.png" id="1_82s6u"]
+[ext_resource type="Texture2D" uid="uid://dvox0fksu14xb" path="res://Little Chicken Assets/Player/Idle/idle_2.png" id="2_v4etd"]
+[ext_resource type="Texture2D" uid="uid://bmrstcqnw1lbs" path="res://Little Chicken Assets/Player/Idle/idle_3.png" id="3_qrafy"]
+[ext_resource type="Texture2D" uid="uid://bkm12i4kuhr7k" path="res://Little Chicken Assets/Player/Idle/idle_4.png" id="4_3a1cs"]
+[ext_resource type="Texture2D" uid="uid://cpx2siekyv2yx" path="res://Little Chicken Assets/Player/Fly/fly_1.png" id="5_mlbhh"]
+[ext_resource type="Texture2D" uid="uid://c4ig0edfeolw7" path="res://Little Chicken Assets/Player/Fly/fly_2.png" id="6_30spn"]
+[ext_resource type="Texture2D" uid="uid://c7lvdh38c23n8" path="res://Little Chicken Assets/Player/Fly/fly_3.png" id="7_xro5h"]
+[ext_resource type="Texture2D" uid="uid://bi4o2gv3q1shl" path="res://Little Chicken Assets/Player/Fly/fly_4.png" id="8_dx2j7"]
+[ext_resource type="Texture2D" uid="uid://bvpw2673e203b" path="res://Little Chicken Assets/Player/Fly/fly_5.png" id="9_0yfg1"]
+[ext_resource type="Texture2D" uid="uid://bcdsub4hggm1r" path="res://Little Chicken Assets/Player/Fly/fly_6.png" id="10_vo41h"]
+[ext_resource type="Texture2D" uid="uid://ddbjqqs7hwt7j" path="res://Little Chicken Assets/Player/Fly/fly_7.png" id="11_qs86l"]
+[ext_resource type="Texture2D" uid="uid://cfsuqph1d7e6f" path="res://Little Chicken Assets/Player/Fly/fly_8.png" id="12_rrplc"]
+[ext_resource type="Texture2D" uid="uid://br0qctck7qxek" path="res://Little Chicken Assets/Player/Fly/fly_9.png" id="13_48lxr"]
+[ext_resource type="Texture2D" uid="uid://crgv7e8lohwmv" path="res://Little Chicken Assets/Player/Fly/fly_10.png" id="14_56g30"]
+[ext_resource type="Texture2D" uid="uid://di0co7xk5ug73" path="res://Little Chicken Assets/Player/Walk/walk_1.png" id="15_jfhcc"]
+[ext_resource type="Texture2D" uid="uid://qp7red3w27w8" path="res://Little Chicken Assets/Player/Walk/walk_2.png" id="16_rumxw"]
+[ext_resource type="Texture2D" uid="uid://y2i6o4pry6q8" path="res://Little Chicken Assets/Player/Walk/walk_3.png" id="17_c255u"]
+[ext_resource type="Texture2D" uid="uid://bfyd3hu51xft2" path="res://Little Chicken Assets/Player/Walk/walk_4.png" id="18_80gjx"]
+[ext_resource type="Texture2D" uid="uid://bds7kuapq0fop" path="res://Little Chicken Assets/Player/Walk/walk_5.png" id="19_jhg5a"]
+[ext_resource type="Texture2D" uid="uid://yglfl2243h21" path="res://Little Chicken Assets/Player/Walk/walk_6.png" id="20_c6onv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5g7du"]
+radius = 9.0
+height = 22.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dcay2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_82s6u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_v4etd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qrafy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3a1cs")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_mlbhh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_30spn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_xro5h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_dx2j7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_0yfg1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_vo41h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_qs86l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_rrplc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_48lxr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_56g30")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_jfhcc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_rumxw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_c255u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_80gjx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_jhg5a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_c6onv")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 15.0
+}]
+
+[node name="chicken_man" type="CharacterBody2D" unique_id=1444778360]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=888309549]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=557220473]
+position = Vector2(-2, 5)
+shape = SubResource("CapsuleShape2D_5g7du")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=881699744]
+sprite_frames = SubResource("SpriteFrames_dcay2")
+animation = &"walk"

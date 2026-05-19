@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bs4sofs5sokea"]
+
+[ext_resource type="PackedScene" uid="uid://g0yk56yuupuv" path="res://scenes/corn_man.tscn" id="1_4xfga"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4xfga"]
+size = Vector2(447, 20)
+
+[node name="map" type="Node2D" unique_id=1416872027]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2102901666]
+position = Vector2(0, 53)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=897808838]
+shape = SubResource("RectangleShape2D_4xfga")
+
+[node name="corn_man" parent="." unique_id=454267213 instance=ExtResource("1_4xfga")]
