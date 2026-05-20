@@ -1,8 +1,6 @@
 extends CharacterBody2D
 
 # ── Node reference ───────────────────────────────────────────────
-# Expects an AnimatedSprite2D child node named "AnimatedSprite2D"
-# with animations: "walk", "idle", "jump", "wall_hang"
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 # ── Speed & gravity ──────────────────────────────────────────────
@@ -11,21 +9,25 @@ const JUMP_VELOCITY  := -400.0
 const GRAVITY        := 980.0
 
 # ── Coyote time ──────────────────────────────────────────────────
-const COYOTE_TIME    := 0.12   # seconds after walking off a ledge you can still jump
+const COYOTE_TIME    := 0.12
 var   coyote_timer   := 0.0
 var   was_on_floor   := false
 
 # ── Jump buffer ──────────────────────────────────────────────────
-# (bonus: press jump just before landing and it still fires)
 const JUMP_BUFFER_TIME := 0.10
 var   jump_buffer_timer := 0.0
 
 # ── Wall hang ────────────────────────────────────────────────────
-const WALL_HANG_DURATION  := 0.6   # how long you can cling to a wall
-const WALL_SLIDE_SPEED    := 40.0  # slow downward drift while hanging
+const WALL_HANG_DURATION  := 0.6
+const WALL_SLIDE_SPEED    := 40.0
 var   wall_hang_timer     := 0.0
 var   is_wall_hanging     := false
-var   wall_hang_direction := 0     # -1 = left wall, 1 = right wall
+var   wall_hang_direction := 0
+
+
+func _ready() -> void:
+	# Force this viewport to use THIS node's camera
+	$"../../../../SubViewportContainer2/SubViewport/map/corn_man2/Camera2D2".make_current()
 
 
 func _physics_process(delta: float) -> void:
@@ -45,7 +47,6 @@ func _handle_coyote_time(delta: float) -> void:
 	if is_on_floor():
 		coyote_timer = COYOTE_TIME
 	elif was_on_floor:
-		# Just left the floor — start counting down
 		coyote_timer -= delta
 	else:
 		coyote_timer -= delta
@@ -74,14 +75,13 @@ func _handle_wall_hang(delta: float) -> void:
 	)
 
 	if touching_wall and moving_into_wall and not is_on_floor() and velocity.y >= 0:
-		# Grab / stay on wall
 		if not is_wall_hanging:
 			is_wall_hanging   = true
 			wall_hang_timer   = WALL_HANG_DURATION
 			wall_hang_direction = -1 if is_on_wall_only() and velocity.x < 0 else 1
 		wall_hang_timer -= delta
 		if wall_hang_timer <= 0.0:
-			is_wall_hanging = false   # timer expired, fall normally
+			is_wall_hanging = false
 	else:
 		is_wall_hanging = false
 
@@ -92,7 +92,6 @@ func _apply_gravity(delta: float) -> void:
 		return
 
 	if is_wall_hanging and wall_hang_timer > 0.0:
-		# Slow slide instead of free-fall
 		velocity.y = WALL_SLIDE_SPEED
 	else:
 		velocity.y += GRAVITY * delta
@@ -114,14 +113,12 @@ func _handle_jump() -> void:
 	if not wants_jump:
 		return
 
-	# Normal / coyote jump
 	if is_on_floor() or _can_coyote_jump():
 		velocity.y     = JUMP_VELOCITY
 		coyote_timer   = 0.0
 		jump_buffer_timer = 0.0
 		return
 
-	# Wall jump — push away from wall
 	if is_wall_hanging:
 		velocity.y          = JUMP_VELOCITY
 		velocity.x          = -wall_hang_direction * SPEED
@@ -131,13 +128,11 @@ func _handle_jump() -> void:
 
 # ── Animation ────────────────────────────────────────────────────
 func _update_animation() -> void:
-	# Flip sprite to face movement direction
 	if velocity.x < 0:
 		sprite.flip_h = false
 	elif velocity.x > 0:
 		sprite.flip_h = true
 
-	# Pick animation — priority: wall hang > airborne > grounded
 	if is_wall_hanging:
 		sprite.play("wall_hang")
 	elif not is_on_floor():
