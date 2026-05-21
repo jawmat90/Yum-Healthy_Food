@@ -26,8 +26,9 @@ var   wall_hang_direction := 0
 
 
 func _ready() -> void:
+	pass
 	# Force this viewport to use THIS node's camera
-	$"../../../../SubViewportContainer2/SubViewport/map/corn_man2/Camera2D2".make_current()
+	#$"../../../../SubViewportContainer2/SubViewport/map/corn_man2/Camera2D2".make_current()
 
 
 func _physics_process(delta: float) -> void:
@@ -59,7 +60,7 @@ func _can_coyote_jump() -> bool:
 
 # ── Jump buffer ──────────────────────────────────────────────────
 func _handle_jump_buffer(delta: float) -> void:
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("p2_up"):
 		jump_buffer_timer = JUMP_BUFFER_TIME
 	else:
 		jump_buffer_timer -= delta
@@ -70,8 +71,8 @@ func _handle_jump_buffer(delta: float) -> void:
 func _handle_wall_hang(delta: float) -> void:
 	var touching_wall := is_on_wall()
 	var moving_into_wall := (
-		(Input.is_action_pressed("ui_right") and velocity.x > 0) or
-		(Input.is_action_pressed("ui_left")  and velocity.x < 0)
+		(Input.is_action_pressed("p2_right") and velocity.x > 0) or
+		(Input.is_action_pressed("p2_left")  and velocity.x < 0)
 	)
 
 	if touching_wall and moving_into_wall and not is_on_floor() and velocity.y >= 0:
@@ -99,14 +100,14 @@ func _apply_gravity(delta: float) -> void:
 
 # ── Horizontal movement ──────────────────────────────────────────
 func _handle_horizontal_movement() -> void:
-	var direction := Input.get_axis("ui_left", "ui_right")
+	var direction := Input.get_axis("p2_left", "p2_right")
 	velocity.x = direction * SPEED
 
 
 # ── Jump ─────────────────────────────────────────────────────────
 func _handle_jump() -> void:
 	var wants_jump := (
-		Input.is_action_just_pressed("ui_accept") or
+		Input.is_action_just_pressed("p2_up") or
 		jump_buffer_timer > 0.0
 	)
 

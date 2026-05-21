@@ -26,8 +26,9 @@ var   wall_hang_direction := 0
 
 
 func _ready() -> void:
+	pass
 	# Force this viewport to use THIS node's camera
-	$"../chicken_man2/Camera2D2".make_current()
+	#$"../chicken_man2/Camera2D2".make_current()
 
 
 func _physics_process(delta: float) -> void:
@@ -128,9 +129,9 @@ func _handle_jump() -> void:
 
 # ── Animation ────────────────────────────────────────────────────
 func _update_animation() -> void:
-	if velocity.x < 0:
+	if velocity.x > 0:
 		sprite.flip_h = false
-	elif velocity.x > 0:
+	elif velocity.x < 0:
 		sprite.flip_h = true
 
 	if is_wall_hanging:

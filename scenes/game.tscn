@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bqav1crycjdf0"]
 
 [ext_resource type="Script" uid="uid://g762lg3vojn7" path="res://scenes/game.gd" id="1_yqjtg"]
+[ext_resource type="Script" uid="uid://ckremq1k6tr3s" path="res://addons/split_screen_2d/split_screen_2d.gd" id="2_iywne"]
 [ext_resource type="PackedScene" uid="uid://bs4sofs5sokea" path="res://scenes/map.tscn" id="2_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://bq06kfq3hrgow" path="res://scenes/chicken_man.tscn" id="3_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://g0yk56yuupuv" path="res://scenes/corn_man.tscn" id="4_iywne"]
@@ -8,34 +9,17 @@
 [node name="game" type="Node2D" unique_id=1132626807]
 script = ExtResource("1_yqjtg")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2004490754]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="SplitScreen2D" type="Node2D" parent="." unique_id=1321877936 node_paths=PackedStringArray("play_area")]
+script = ExtResource("2_iywne")
+play_area = NodePath("map")
+min_players = 2
+max_players = 2
+metadata/_custom_type_script = "uid://ckremq1k6tr3s"
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="HBoxContainer" unique_id=1780168487]
-layout_mode = 2
+[node name="map" parent="SplitScreen2D" unique_id=1416872027 instance=ExtResource("2_lnu2h")]
 
-[node name="SubViewport" type="SubViewport" parent="HBoxContainer/SubViewportContainer" unique_id=800866090]
-handle_input_locally = false
-render_target_update_mode = 4
+[node name="chicken_man" parent="SplitScreen2D" unique_id=1444778360 instance=ExtResource("3_lbhrr")]
+position = Vector2(-602, 93)
 
-[node name="map" parent="HBoxContainer/SubViewportContainer/SubViewport" unique_id=1416872027 instance=ExtResource("2_lnu2h")]
-position = Vector2(616, 311)
-
-[node name="chicken_man2" parent="HBoxContainer/SubViewportContainer/SubViewport/map" unique_id=1444778360 instance=ExtResource("3_lbhrr")]
-position = Vector2(-616, -311)
-
-[node name="Camera2D2" type="Camera2D" parent="HBoxContainer/SubViewportContainer/SubViewport/map/chicken_man2" unique_id=785136958]
-
-[node name="SubViewportContainer2" type="SubViewportContainer" parent="HBoxContainer" unique_id=196318935]
-layout_mode = 2
-
-[node name="SubViewport" type="SubViewport" parent="HBoxContainer/SubViewportContainer2" unique_id=1204667471]
-handle_input_locally = false
-render_target_update_mode = 4
-
-[node name="map" parent="HBoxContainer/SubViewportContainer2/SubViewport" unique_id=269112138 instance=ExtResource("2_lnu2h")]
-
-[node name="corn_man2" parent="HBoxContainer/SubViewportContainer2/SubViewport/map" unique_id=454267213 instance=ExtResource("4_iywne")]
-
-[node name="Camera2D2" type="Camera2D" parent="HBoxContainer/SubViewportContainer2/SubViewport/map/corn_man2" unique_id=213409944]
+[node name="corn_man" parent="SplitScreen2D" unique_id=454267213 instance=ExtResource("4_iywne")]
+position = Vector2(-518, 94)

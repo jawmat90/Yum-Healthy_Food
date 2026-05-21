@@ -22,10 +22,6 @@
 [ext_resource type="Texture2D" uid="uid://bds7kuapq0fop" path="res://Little Chicken Assets/Player/Walk/walk_5.png" id="19_jhg5a"]
 [ext_resource type="Texture2D" uid="uid://yglfl2243h21" path="res://Little Chicken Assets/Player/Walk/walk_6.png" id="20_c6onv"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5g7du"]
-radius = 9.0
-height = 22.0
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_dcay2"]
 animations = [{
 "frames": [{
@@ -104,16 +100,17 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5g7du"]
+radius = 8.0
+height = 16.0
+
 [node name="chicken_man" type="CharacterBody2D" unique_id=1444778360]
 script = ExtResource("1_v4etd")
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=888309549]
-zoom = Vector2(2, 2)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=557220473]
-position = Vector2(-2, 5)
-shape = SubResource("CapsuleShape2D_5g7du")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=881699744]
 sprite_frames = SubResource("SpriteFrames_dcay2")
 animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=557220473]
+position = Vector2(0, 6)
+shape = SubResource("CapsuleShape2D_5g7du")
