@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bs4sofs5sokea" path="res://scenes/map.tscn" id="2_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://bq06kfq3hrgow" path="res://scenes/chicken_man.tscn" id="3_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://g0yk56yuupuv" path="res://scenes/corn_man.tscn" id="4_iywne"]
+[ext_resource type="PackedScene" uid="uid://bbmvvj662xh5w" path="res://scenes/sour_troop.tscn" id="6_p57ef"]
 
 [node name="game" type="Node2D" unique_id=1132626807]
 script = ExtResource("1_yqjtg")
@@ -17,6 +18,10 @@ max_players = 2
 metadata/_custom_type_script = "uid://ckremq1k6tr3s"
 
 [node name="map" parent="SplitScreen2D" unique_id=1416872027 instance=ExtResource("2_lnu2h")]
+
+[node name="sour_troop" parent="SplitScreen2D/map" unique_id=1862405829 instance=ExtResource("6_p57ef")]
+position = Vector2(-429, 95)
+move_right = true
 
 [node name="chicken_man" parent="SplitScreen2D" unique_id=1444778360 instance=ExtResource("3_lbhrr")]
 position = Vector2(-602, 93)

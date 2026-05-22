@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://bbmvvj662xh5w"]
+
+[ext_resource type="Script" uid="uid://ch41frci08uey" path="res://sour_troop.gd" id="1_ml75t"]
+[ext_resource type="Texture2D" uid="uid://4fjs5rkyeayy" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 34/3_enemy_34_defated.png" id="2_g65f2"]
+[ext_resource type="Texture2D" uid="uid://bql5x1yhp5jdo" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 34/3_enemy_34_idle_1.png" id="3_vqxy3"]
+[ext_resource type="Texture2D" uid="uid://lapp832md43m" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 34/3_enemy_34_idle_2.png" id="4_nlojv"]
+[ext_resource type="Texture2D" uid="uid://bwaaykhyvi776" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 34/3_enemy_34_walk_1.png" id="5_msulp"]
+[ext_resource type="Texture2D" uid="uid://drd6w7r3v0s1j" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 34/3_enemy_34_walk_2.png" id="6_msqcr"]
+[ext_resource type="Texture2D" uid="uid://cp4gp5ftmv7s8" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 34/3_enemy_34_walk_3.png" id="7_c0rrw"]
+[ext_resource type="Texture2D" uid="uid://ctfeelv2sxtc3" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 34/3_enemy_34_walk_4.png" id="8_h6jsp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kvwfo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_g65f2")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_vqxy3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_nlojv")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_msulp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_msqcr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_c0rrw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_h6jsp")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m054m"]
+radius = 7.0
+height = 14.0
+
+[node name="sour_troop" type="CharacterBody2D" unique_id=1862405829]
+script = ExtResource("1_ml75t")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=460245098]
+sprite_frames = SubResource("SpriteFrames_kvwfo")
+animation = &"walk"
+autoplay = "walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=156288650]
+position = Vector2(0, 7)
+shape = SubResource("CapsuleShape2D_m054m")
+
+[node name="RayCastRight" type="RayCast2D" parent="." unique_id=859419377]
+position = Vector2(10, -4)
+
+[node name="RayCastLeft" type="RayCast2D" parent="." unique_id=988622032]
+position = Vector2(-11, -4)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=564555974]
+position = Vector2(-77, 6)

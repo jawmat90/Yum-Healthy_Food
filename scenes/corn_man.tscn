@@ -70,6 +70,7 @@ script = ExtResource("1_mkwpp")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1161574681]
 sprite_frames = SubResource("SpriteFrames_54d4r")
 animation = &"idle"
+autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2205594]
 position = Vector2(0, 5)
