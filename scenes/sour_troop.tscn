@@ -52,6 +52,12 @@ animations = [{
 radius = 7.0
 height = 14.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ml75t"]
+size = Vector2(13, 12.25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g65f2"]
+size = Vector2(17, 3)
+
 [node name="sour_troop" type="CharacterBody2D" unique_id=1862405829]
 script = ExtResource("1_ml75t")
 
@@ -70,5 +76,19 @@ position = Vector2(10, -4)
 [node name="RayCastLeft" type="RayCast2D" parent="." unique_id=988622032]
 position = Vector2(-11, -4)
 
-[node name="Area2D" type="Area2D" parent="." unique_id=564555974]
-position = Vector2(-77, 6)
+[node name="BodyArea" type="Area2D" parent="." unique_id=564555974]
+position = Vector2(-75, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea" unique_id=2044845962]
+position = Vector2(75, -1)
+shape = SubResource("RectangleShape2D_ml75t")
+
+[node name="StompArea" type="Area2D" parent="." unique_id=1116960934]
+position = Vector2(-75, 28)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StompArea" unique_id=2090526796]
+position = Vector2(75, -31)
+shape = SubResource("RectangleShape2D_g65f2")
+
+[connection signal="body_entered" from="BodyArea" to="." method="_on_body_area_body_entered"]
+[connection signal="body_entered" from="StompArea" to="." method="_on_stomp_area_body_entered"]

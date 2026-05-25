@@ -4,7 +4,6 @@ const SPEED = 60.0
 const GRAVITY = 900.0
 
 @export var move_right = true
-
 var flip_cooldown = 0.0
 
 func _physics_process(delta):
@@ -14,11 +13,10 @@ func _physics_process(delta):
 
 	# Horizontal movement
 	velocity.x = SPEED if move_right else -SPEED
-
 	move_and_slide()
 
 	# Flip sprite to match direction
-	$AnimatedSprite2D.flip_h = !move_right
+	$AnimatedSprite2D.flip_h = move_right
 
 	# Cooldown timer to prevent rapid oscillation on walls
 	if flip_cooldown > 0:
@@ -31,7 +29,7 @@ func _physics_process(delta):
 		velocity.x = 0
 		flip_cooldown = 0.2
 
-# --- Edge Detection (requires two RayCast2D nodes named RayCastLeft and RayCastRight) ---
+	# Edge Detection
 	if move_right and not $RayCastRight.is_colliding():
 		move_right = false
 		flip_cooldown = 0.2
@@ -39,20 +37,24 @@ func _physics_process(delta):
 		move_right = true
 		flip_cooldown = 0.2
 
-# --- Stomp Detection (requires an Area2D named StompArea on top of the enemy) ---
+
+# --- Stomp Detection ---
 func _on_stomp_area_body_entered(body):
-	if body.name == "Player" and body.velocity.y > 0:
+	if body.is_in_group("player") and body.velocity.y >= 0:
 		die()
 		body.velocity.y = -300
 
-# --- Side Collision (requires an Area2D named BodyArea on the sides) ---
 func _on_body_area_body_entered(body):
-	if body.name == "Player":
-		body.take_damage()
+	if body.is_in_group("player"):
+		body.take_damage(global_position)
+
 
 # --- Death ---
 func die():
-	$AnimatedSprite2D.play("squish")
+	$AnimatedSprite2D.play("dead")
 	set_physics_process(false)
+	# Disable both hit areas so nothing triggers during death animation
+	$StompArea/CollisionShape2D.set_deferred("disabled", true)
+	$BodyArea/CollisionShape2D.set_deferred("disabled", true)
 	await get_tree().create_timer(0.3).timeout
 	queue_free()

@@ -8,6 +8,13 @@ const SPEED          := 200.0
 const JUMP_VELOCITY  := -400.0
 const GRAVITY        := 980.0
 
+# ── Health ───────────────────────────────────────────────────────
+const MAX_HEALTH        := 3
+var   health            := MAX_HEALTH
+var   is_invincible     := false
+const INVINCIBILITY_TIME := 1.2   # seconds of i-frames after hit
+const KNOCKBACK_FORCE   := 300.0
+
 # ── Coyote time ──────────────────────────────────────────────────
 const COYOTE_TIME    := 0.12
 var   coyote_timer   := 0.0
@@ -27,8 +34,6 @@ var   wall_hang_direction := 0
 
 func _ready() -> void:
 	pass
-	# Force this viewport to use THIS node's camera
-	#$"../chicken_man2/Camera2D2".make_current()
 
 
 func _physics_process(delta: float) -> void:
@@ -125,6 +130,42 @@ func _handle_jump() -> void:
 		velocity.x          = -wall_hang_direction * SPEED
 		is_wall_hanging     = false
 		jump_buffer_timer   = 0.0
+
+
+# ── Damage ───────────────────────────────────────────────────────
+func take_damage(enemy_position: Vector2 = Vector2.ZERO) -> void:
+	if is_invincible:
+		return
+
+	health -= 1
+	is_invincible = true
+
+	# Knockback away from the enemy
+	if enemy_position != Vector2.ZERO:
+		var direction = sign(global_position.x - enemy_position.x)
+		velocity.x = direction * KNOCKBACK_FORCE
+		velocity.y = -200.0  # small upward bump
+
+	if health <= 0:
+		die()
+	else:
+		_start_invincibility()
+
+
+func _start_invincibility() -> void:
+	# Flash the sprite during i-frames
+	var tween := create_tween().set_loops(6)
+	tween.tween_property(sprite, "modulate:a", 0.2, 0.1)
+	tween.tween_property(sprite, "modulate:a", 1.0, 0.1)
+	await get_tree().create_timer(INVINCIBILITY_TIME).timeout
+	is_invincible = false
+	sprite.modulate.a = 1.0  # make sure it's fully visible
+
+
+func die() -> void:
+	# Add your game-over logic here
+	print("Player died!")
+	get_tree().reload_current_scene()
 
 
 # ── Animation ────────────────────────────────────────────────────
