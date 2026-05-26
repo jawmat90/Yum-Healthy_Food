@@ -30,8 +30,11 @@ const WALL_SLIDE_SPEED    := 40.0
 var   wall_hang_timer     := 0.0
 var   is_wall_hanging     := false
 var   wall_hang_direction := 0
+@onready var start_pos = global_position
 
-
+func reset():
+	global_position=start_pos
+	set_physics_process(true)
 func _ready() -> void:
 	pass
 
@@ -183,3 +186,17 @@ func _update_animation() -> void:
 		sprite.play("walk")
 	else:
 		sprite.play("idle")
+
+
+func enemy_checker(enemy):
+	if enemy.is_in_group("Enemy") and velocity.y > 0:
+		enemy.die()
+		velocity.y = JUMP_VELOCITY
+	
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	enemy_checker(area)
+
+
+func _on_hitbox_body_entered(body: Node2D) -> void:
+	enemy_checker(body)
