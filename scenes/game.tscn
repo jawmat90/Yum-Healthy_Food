@@ -20,11 +20,23 @@ metadata/_custom_type_script = "uid://ckremq1k6tr3s"
 [node name="map" parent="SplitScreen2D" unique_id=1416872027 instance=ExtResource("2_lnu2h")]
 
 [node name="sour_troop" parent="SplitScreen2D/map" unique_id=1862405829 instance=ExtResource("6_p57ef")]
-position = Vector2(-429, 95)
-move_right = true
+position = Vector2(985, -42)
+
+[node name="sour_troop2" parent="SplitScreen2D/map" unique_id=73047472 instance=ExtResource("6_p57ef")]
+position = Vector2(336, 99)
+
+[node name="sour_troop3" parent="SplitScreen2D/map" unique_id=214297632 instance=ExtResource("6_p57ef")]
+position = Vector2(1626, 81)
+
+[node name="sour_troop4" parent="SplitScreen2D/map" unique_id=756851633 instance=ExtResource("6_p57ef")]
+position = Vector2(2158, -30)
 
 [node name="chicken_man" parent="SplitScreen2D" unique_id=1444778360 instance=ExtResource("3_lbhrr")]
 position = Vector2(-602, 93)
 
-[node name="corn_man" parent="SplitScreen2D" unique_id=454267213 instance=ExtResource("4_iywne")]
-position = Vector2(-518, 94)
+[node name="corn_man" parent="SplitScreen2D" unique_id=454267213 groups=["Player"] instance=ExtResource("4_iywne")]
+position = Vector2(-519, 92)
+reverse_sprite_facing = true
+left_key = "p2_left"
+right_key = "p2_right"
+jump = "p2_jump"

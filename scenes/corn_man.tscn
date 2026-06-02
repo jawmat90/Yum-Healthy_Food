@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://g0yk56yuupuv"]
 
-[ext_resource type="Script" uid="uid://cwkh07w5whquy" path="res://corn_character.gd" id="1_mkwpp"]
+[ext_resource type="Script" uid="uid://bdnkwvqx32r3a" path="res://scenes/chicken_man.gd" id="1_mkwpp"]
 [ext_resource type="Texture2D" uid="uid://djjww252dx5vf" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 37/enemy_37_idle_1.png" id="2_gj7g4"]
 [ext_resource type="Texture2D" uid="uid://bdru0n6jqheyd" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 37/enemy_37_idle_2.png" id="3_7mneb"]
 [ext_resource type="Texture2D" uid="uid://bmm01oh46tktl" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 37/enemy_37_run_1.png" id="4_cw70d"]

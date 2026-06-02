@@ -40,13 +40,18 @@ func _physics_process(delta):
 
 # --- Stomp Detection ---
 func _on_stomp_area_body_entered(body):
-	if body.is_in_group("player") and body.velocity.y >= 0:
+	if body.is_in_group("Player"):
+		print("stomp area entered at speed : ", body.velocity.y) 
+	if body.is_in_group("Player") and body.velocity.y > 0:
+		print("dying from getting jumped on")
 		die()
 		body.velocity.y = -300
 
 func _on_body_area_body_entered(body):
-	if body.is_in_group("player"):
-		body.take_damage(global_position)
+	print("body area check : ", body.name)
+	if body.is_in_group("Player"):
+		print(body.name , "dying")
+		body.die()
 
 
 # --- Death ---

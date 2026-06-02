@@ -53,12 +53,14 @@ radius = 7.0
 height = 14.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ml75t"]
-size = Vector2(13, 12.25)
+size = Vector2(8, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g65f2"]
 size = Vector2(17, 3)
 
-[node name="sour_troop" type="CharacterBody2D" unique_id=1862405829]
+[node name="sour_troop" type="CharacterBody2D" unique_id=1862405829 groups=["Enemy"]]
+collision_layer = 0
+collision_mask = 2
 script = ExtResource("1_ml75t")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=460245098]

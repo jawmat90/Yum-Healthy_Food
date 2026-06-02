@@ -2,12 +2,14 @@ extends CharacterBody2D
 
 # ── Node reference ───────────────────────────────────────────────
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
-
+@export var reverse_sprite_facing : bool = false
 # ── Speed & gravity ──────────────────────────────────────────────
 const SPEED          := 200.0
 const JUMP_VELOCITY  := -400.0
 const GRAVITY        := 980.0
-
+@export var left_key : String = "p1_left"
+@export var right_key : String = "p1_right"
+@export var jump : String = "p1_jump"
 # ── Health ───────────────────────────────────────────────────────
 const MAX_HEALTH        := 3
 var   health            := MAX_HEALTH
@@ -68,7 +70,7 @@ func _can_coyote_jump() -> bool:
 
 # ── Jump buffer ──────────────────────────────────────────────────
 func _handle_jump_buffer(delta: float) -> void:
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed(jump):
 		jump_buffer_timer = JUMP_BUFFER_TIME
 	else:
 		jump_buffer_timer -= delta
@@ -79,8 +81,8 @@ func _handle_jump_buffer(delta: float) -> void:
 func _handle_wall_hang(delta: float) -> void:
 	var touching_wall := is_on_wall()
 	var moving_into_wall := (
-		(Input.is_action_pressed("ui_right") and velocity.x > 0) or
-		(Input.is_action_pressed("ui_left")  and velocity.x < 0)
+		(Input.is_action_pressed(right_key) and velocity.x > 0) or
+		(Input.is_action_pressed(left_key)  and velocity.x < 0)
 	)
 
 	if touching_wall and moving_into_wall and not is_on_floor() and velocity.y >= 0:
@@ -108,14 +110,14 @@ func _apply_gravity(delta: float) -> void:
 
 # ── Horizontal movement ──────────────────────────────────────────
 func _handle_horizontal_movement() -> void:
-	var direction := Input.get_axis("ui_left", "ui_right")
+	var direction := Input.get_axis(left_key, right_key)
 	velocity.x = direction * SPEED
 
 
 # ── Jump ─────────────────────────────────────────────────────────
 func _handle_jump() -> void:
 	var wants_jump := (
-		Input.is_action_just_pressed("ui_accept") or
+		Input.is_action_just_pressed(jump) or
 		jump_buffer_timer > 0.0
 	)
 
@@ -173,10 +175,16 @@ func die() -> void:
 
 # ── Animation ────────────────────────────────────────────────────
 func _update_animation() -> void:
-	if velocity.x > 0:
-		sprite.flip_h = false
-	elif velocity.x < 0:
-		sprite.flip_h = true
+	if reverse_sprite_facing:
+		if velocity.x > 0:
+			sprite.flip_h = true
+		elif velocity.x < 0:
+			sprite.flip_h = false
+	else:
+		if velocity.x > 0:
+			sprite.flip_h = false
+		elif velocity.x < 0:
+			sprite.flip_h = true
 
 	if is_wall_hanging:
 		sprite.play("wall_hang")
@@ -188,15 +196,4 @@ func _update_animation() -> void:
 		sprite.play("idle")
 
 
-func enemy_checker(enemy):
-	if enemy.is_in_group("Enemy") and velocity.y > 0:
-		enemy.die()
-		velocity.y = JUMP_VELOCITY
 	
-
-func _on_hitbox_area_entered(area: Area2D) -> void:
-	enemy_checker(area)
-
-
-func _on_hitbox_body_entered(body: Node2D) -> void:
-	enemy_checker(body)
