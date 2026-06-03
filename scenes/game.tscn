@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bs4sofs5sokea" path="res://scenes/map.tscn" id="2_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://bq06kfq3hrgow" path="res://scenes/chicken_man.tscn" id="3_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://g0yk56yuupuv" path="res://scenes/corn_man.tscn" id="4_iywne"]
+[ext_resource type="PackedScene" uid="uid://x87vk8hrr01x" path="res://scenes/door_and_key.tscn" id="5_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://bbmvvj662xh5w" path="res://scenes/sour_troop.tscn" id="6_p57ef"]
 
 [node name="game" type="Node2D" unique_id=1132626807]
@@ -29,14 +30,32 @@ position = Vector2(336, 99)
 position = Vector2(1626, 81)
 
 [node name="sour_troop4" parent="SplitScreen2D/map" unique_id=756851633 instance=ExtResource("6_p57ef")]
-position = Vector2(2158, -30)
+position = Vector2(2185, -15)
+
+[node name="Door And Key2" parent="SplitScreen2D/map" unique_id=2116517666 instance=ExtResource("5_u5sy4")]
+position = Vector2(-372, -229)
+
+[node name="AnimationPlayer" parent="SplitScreen2D/map/Door And Key2/Door" parent_id_path=PackedInt32Array(2116517666, 502863701) index="2" unique_id=613442028]
+root_node = NodePath("../../../Door And Key2")
+
+[node name="Key" parent="SplitScreen2D/map/Door And Key2" index="1" unique_id=241768190]
+position = Vector2(-313, -178)
+
+[node name="Door And Key" parent="SplitScreen2D/map" unique_id=526578383 instance=ExtResource("5_u5sy4")]
+position = Vector2(-421, 109)
+
+[node name="Key" parent="SplitScreen2D/map/Door And Key" index="1" unique_id=1395618395]
+position = Vector2(-265, -101)
 
 [node name="chicken_man" parent="SplitScreen2D" unique_id=1444778360 instance=ExtResource("3_lbhrr")]
-position = Vector2(-602, 93)
+position = Vector2(-310, 96)
 
 [node name="corn_man" parent="SplitScreen2D" unique_id=454267213 groups=["Player"] instance=ExtResource("4_iywne")]
-position = Vector2(-519, 92)
+position = Vector2(-588, 101)
 reverse_sprite_facing = true
 left_key = "p2_left"
 right_key = "p2_right"
 jump = "p2_jump"
+
+[editable path="SplitScreen2D/map/Door And Key2"]
+[editable path="SplitScreen2D/map/Door And Key"]
