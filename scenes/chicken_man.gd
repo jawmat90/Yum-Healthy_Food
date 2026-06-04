@@ -116,25 +116,26 @@ func _handle_horizontal_movement() -> void:
 
 # ── Jump ─────────────────────────────────────────────────────────
 func _handle_jump() -> void:
-	var wants_jump := (
-		Input.is_action_just_pressed(jump) or
-		jump_buffer_timer > 0.0
-	)
+	# Use only the buffer timer — it's set to JUMP_BUFFER_TIME on the
+	# exact frame just_pressed fires, so it covers that frame too.
+	# This prevents missed jumps when the floor/coyote check resolves
+	# one frame after the button press.
+	var wants_jump := jump_buffer_timer > 0.0
 
 	if not wants_jump:
 		return
 
 	if is_on_floor() or _can_coyote_jump():
-		velocity.y     = JUMP_VELOCITY
-		coyote_timer   = 0.0
+		velocity.y        = JUMP_VELOCITY
+		coyote_timer      = 0.0
 		jump_buffer_timer = 0.0
 		return
 
 	if is_wall_hanging:
-		velocity.y          = JUMP_VELOCITY
-		velocity.x          = -wall_hang_direction * SPEED
-		is_wall_hanging     = false
-		jump_buffer_timer   = 0.0
+		velocity.y        = JUMP_VELOCITY
+		velocity.x        = -wall_hang_direction * SPEED
+		is_wall_hanging   = false
+		jump_buffer_timer = 0.0
 
 
 # ── Damage ───────────────────────────────────────────────────────
@@ -194,6 +195,3 @@ func _update_animation() -> void:
 		sprite.play("walk")
 	else:
 		sprite.play("idle")
-
-
-	

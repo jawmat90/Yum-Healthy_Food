@@ -33,22 +33,19 @@ position = Vector2(1626, 81)
 position = Vector2(2185, -15)
 
 [node name="Door And Key2" parent="SplitScreen2D/map" unique_id=2116517666 instance=ExtResource("5_u5sy4")]
-position = Vector2(-372, -229)
-
-[node name="AnimationPlayer" parent="SplitScreen2D/map/Door And Key2/Door" parent_id_path=PackedInt32Array(2116517666, 502863701) index="2" unique_id=613442028]
-root_node = NodePath("../../../Door And Key2")
+position = Vector2(-19, 101)
 
 [node name="Key" parent="SplitScreen2D/map/Door And Key2" index="1" unique_id=241768190]
-position = Vector2(-313, -178)
+position = Vector2(-669, -505)
 
 [node name="Door And Key" parent="SplitScreen2D/map" unique_id=526578383 instance=ExtResource("5_u5sy4")]
-position = Vector2(-421, 109)
+position = Vector2(-389, 99)
 
-[node name="Key" parent="SplitScreen2D/map/Door And Key" index="1" unique_id=1395618395]
-position = Vector2(-265, -101)
+[node name="Key" parent="SplitScreen2D/map/Door And Key" index="1" unique_id=241768190]
+position = Vector2(-284, -90)
 
 [node name="chicken_man" parent="SplitScreen2D" unique_id=1444778360 instance=ExtResource("3_lbhrr")]
-position = Vector2(-310, 96)
+position = Vector2(-514, 102)
 
 [node name="corn_man" parent="SplitScreen2D" unique_id=454267213 groups=["Player"] instance=ExtResource("4_iywne")]
 position = Vector2(-588, 101)
