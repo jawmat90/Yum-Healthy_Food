@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://g0yk56yuupuv" path="res://scenes/corn_man.tscn" id="4_iywne"]
 [ext_resource type="PackedScene" uid="uid://x87vk8hrr01x" path="res://scenes/door_and_key.tscn" id="5_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://bbmvvj662xh5w" path="res://scenes/sour_troop.tscn" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://xoiabkmvgegw" path="res://scenes/killzone.tscn" id="8_gee14"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gee14"]
 
 [node name="game" type="Node2D" unique_id=1132626807]
 script = ExtResource("1_yqjtg")
@@ -44,11 +47,17 @@ position = Vector2(-389, 99)
 [node name="Key" parent="SplitScreen2D/map/Door And Key" index="1" unique_id=241768190]
 position = Vector2(-284, -90)
 
+[node name="killzone" parent="SplitScreen2D/map" unique_id=1396131333 instance=ExtResource("8_gee14")]
+position = Vector2(630, 622)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SplitScreen2D/map/killzone" unique_id=1646469302]
+shape = SubResource("WorldBoundaryShape2D_gee14")
+
 [node name="chicken_man" parent="SplitScreen2D" unique_id=1444778360 instance=ExtResource("3_lbhrr")]
 position = Vector2(-514, 102)
 
 [node name="corn_man" parent="SplitScreen2D" unique_id=454267213 groups=["Player"] instance=ExtResource("4_iywne")]
-position = Vector2(-588, 101)
+position = Vector2(872, 15)
 reverse_sprite_facing = true
 left_key = "p2_left"
 right_key = "p2_right"

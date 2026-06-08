@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cnon5i0ubh2gc"]
+
+[ext_resource type="Texture2D" uid="uid://qd64xtrclu5t" path="res://Gemini_Generated_Image_5jz9hr5jz9hr5jz9.png" id="1_6d6rd"]
+
+[node name="Titlescreen" type="Node2D" unique_id=1281945608]
+
+[node name="picture" type="Sprite2D" parent="." unique_id=1188902546]
+position = Vector2(575, 325)
+scale = Vector2(1.1329365, 0.616268)
+texture = ExtResource("1_6d6rd")
