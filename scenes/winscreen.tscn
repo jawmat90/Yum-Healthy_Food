@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bg4n3obx3807m"]
+
+[ext_resource type="Script" uid="uid://fne6wy5hnsf7" path="res://winscreen.gd" id="1_wg0yv"]
+[ext_resource type="Texture2D" uid="uid://evkh56w8bsbi" path="res://scenes/Gemini_Generated_Image_iakt1viakt1viakt.png" id="2_unfcc"]
+
+[node name="winscreen" type="Node2D" unique_id=211944186]
+script = ExtResource("1_wg0yv")
+
+[node name="GeminiGeneratedImageIakt1Viakt1Viakt" type="Sprite2D" parent="." unique_id=490455443]
+position = Vector2(580.5595, 324.99997)
+scale = Vector2(1.0932839, 0.6582661)
+texture = ExtResource("2_unfcc")
+
+[node name="restart" type="Button" parent="GeminiGeneratedImageIakt1Viakt1Viakt" unique_id=80372136]
+offset_left = -95.63803
+offset_top = 378.26648
+offset_right = 151.32437
+offset_bottom = 454.22363
+
+[connection signal="pressed" from="GeminiGeneratedImageIakt1Viakt1Viakt/restart" to="." method="_on_restart_pressed"]

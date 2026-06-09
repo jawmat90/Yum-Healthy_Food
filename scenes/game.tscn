@@ -57,7 +57,7 @@ shape = SubResource("WorldBoundaryShape2D_gee14")
 position = Vector2(-514, 102)
 
 [node name="corn_man" parent="SplitScreen2D" unique_id=454267213 groups=["Player"] instance=ExtResource("4_iywne")]
-position = Vector2(872, 15)
+position = Vector2(3176, 290)
 reverse_sprite_facing = true
 left_key = "p2_left"
 right_key = "p2_right"
