@@ -21,7 +21,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("3_7mneb")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 10.0
 }, {
@@ -38,7 +38,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("7_lgobi")
 }],
-"loop": true,
+"loop": 1,
 "name": &"run",
 "speed": 5.0
 }, {
@@ -55,7 +55,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("11_rnxw7")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk",
 "speed": 15.0
 }]
@@ -65,6 +65,8 @@ radius = 8.0
 height = 18.0
 
 [node name="corn_man" type="CharacterBody2D" unique_id=454267213]
+collision_layer = 9
+collision_mask = 9
 script = ExtResource("1_mkwpp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1161574681]
