@@ -1,0 +1,77 @@
+[gd_scene load_steps=12 format=3 uid="uid://c6vv1g3n3rsky"]
+
+[ext_resource type="Script" path="res://Scenes/explode.gd" id="1_8b7wo"]
+[ext_resource type="Texture2D" uid="uid://bkhk2nmxmmakw" path="res://Sprites/Mini FX, Items & UI/Effects/Explosion_Poof (16 x 16).png" id="2_etbf1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_svd7d"]
+atlas = ExtResource("2_etbf1")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yhnkw"]
+atlas = ExtResource("2_etbf1")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dh4a"]
+atlas = ExtResource("2_etbf1")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mt8du"]
+atlas = ExtResource("2_etbf1")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vd2ao"]
+atlas = ExtResource("2_etbf1")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dc7y"]
+atlas = ExtResource("2_etbf1")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_07g2o"]
+atlas = ExtResource("2_etbf1")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3lftj"]
+atlas = ExtResource("2_etbf1")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_374tt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_svd7d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yhnkw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dh4a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mt8du")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vd2ao")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dc7y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_07g2o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3lftj")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Explode" type="Node2D"]
+script = ExtResource("1_8b7wo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_374tt")
+autoplay = "default"
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

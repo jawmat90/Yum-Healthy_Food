@@ -104,8 +104,8 @@ animations = [{
 radius = 8.0
 height = 16.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_v4etd"]
-radius = 9.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gj7g4"]
+size = Vector2(9, 2)
 
 [node name="chicken_man" type="CharacterBody2D" unique_id=1444778360 groups=["Player"]]
 collision_layer = 17
@@ -124,8 +124,19 @@ shape = SubResource("CapsuleShape2D_5g7du")
 [node name="Hitbox" type="Area2D" parent="." unique_id=1648455822]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1998716945]
-position = Vector2(0, 6)
-shape = SubResource("CircleShape2D_v4etd")
+position = Vector2(-0.5, -2)
+shape = SubResource("RectangleShape2D_gj7g4")
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1072368984]
+unique_name_in_owner = true
+target_position = Vector2(0, 21)
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=393342924]
+visible = false
+position = Vector2(-4, 5)
+rect = Rect2(-10, -13, 26, 27)
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

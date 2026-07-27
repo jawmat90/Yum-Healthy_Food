@@ -15,6 +15,14 @@ run/main_scene="uid://cnon5i0ubh2gc"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=400
+window/size/viewport_height=300
+window/size/window_width_override=1200
+window/size/window_height_override=900
+window/stretch/mode="canvas_items"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/split_screen_2d/plugin.cfg")

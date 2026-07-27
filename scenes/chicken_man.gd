@@ -2,7 +2,12 @@ extends CharacterBody2D
 
 # ── Node reference ───────────────────────────────────────────────
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var hitbox: Area2D = $Hitbox
+@onready var stomp_ray: RayCast2D = %RayCast2D
 @export var reverse_sprite_facing : bool = false
+@export var debug_stomp : bool = false
+
 # ── Speed & gravity ──────────────────────────────────────────────
 const SPEED          := 200.0
 const JUMP_VELOCITY  := -400.0
@@ -10,17 +15,18 @@ const GRAVITY        := 980.0
 @export var left_key : String = "p1_left"
 @export var right_key : String = "p1_right"
 @export var jump : String = "p1_jump"
+
 # ── Health ───────────────────────────────────────────────────────
 const MAX_HEALTH        := 3
 var   health            := MAX_HEALTH
 var   is_invincible     := false
+var   is_dead           := false
 const INVINCIBILITY_TIME := 1.2   # seconds of i-frames after hit
 const KNOCKBACK_FORCE   := 300.0
 
 # ── Coyote time ──────────────────────────────────────────────────
 const COYOTE_TIME    := 0.12
 var   coyote_timer   := 0.0
-var   was_on_floor   := false
 
 # ── Jump buffer ──────────────────────────────────────────────────
 const JUMP_BUFFER_TIME := 0.10
@@ -32,16 +38,56 @@ const WALL_SLIDE_SPEED    := 40.0
 var   wall_hang_timer     := 0.0
 var   is_wall_hanging     := false
 var   wall_hang_direction := 0
+
+# ── Stomp (head-jump PvP kill) ────────────────────────────────────
+const STOMP_BOUNCE_VELOCITY := -350.0   # how high you pop up after stomping someone
+
 @onready var start_pos = global_position
 
-func reset():
-	global_position=start_pos
-	set_physics_process(true)
+
+func _mask_to_bits(mask: int) -> Array:
+	var bits := []
+	for i in range(32):
+		if mask & (1 << i):
+			bits.append(i + 1)  # Godot layer numbers are 1-indexed in the editor
+	return bits
+
+
 func _ready() -> void:
-	pass
+	stomp_ray.enabled = true
+	stomp_ray.collide_with_areas = true
+	stomp_ray.collide_with_bodies = false
+
+	if debug_stomp:
+		print("[%s] READY -----------------------------" % name)
+		print("  stomp_ray position=%s target_position=%s enabled=%s" % [
+			stomp_ray.position, stomp_ray.target_position, stomp_ray.enabled])
+		print("  stomp_ray collision_mask=%s (bits: %s)" % [
+			stomp_ray.collision_mask, _mask_to_bits(stomp_ray.collision_mask)])
+		print("  hitbox collision_layer=%s (bits: %s) monitorable=%s" % [
+			hitbox.collision_layer, _mask_to_bits(hitbox.collision_layer), hitbox.monitorable])
+		print("  body collision_layer=%s collision_mask=%s" % [
+			collision_layer, collision_mask])
+
+
+func reset() -> void:
+	global_position = start_pos
+	health = MAX_HEALTH
+	is_invincible = false
+	is_dead = false
+	sprite.modulate.a = 1.0
+	sprite.visible = true
+	collision_shape.set_deferred("disabled", false)
+	hitbox.monitoring = true
+	hitbox.monitorable = true
+	set_physics_process(true)
+	show()
 
 
 func _physics_process(delta: float) -> void:
+	if is_dead:
+		return
+
 	_handle_coyote_time(delta)
 	_handle_jump_buffer(delta)
 	_handle_wall_hang(delta)
@@ -49,7 +95,7 @@ func _physics_process(delta: float) -> void:
 	_handle_horizontal_movement()
 	_handle_jump()
 	move_and_slide()
-	was_on_floor = is_on_floor()
+	_check_stomp()
 	_update_animation()
 
 
@@ -57,11 +103,8 @@ func _physics_process(delta: float) -> void:
 func _handle_coyote_time(delta: float) -> void:
 	if is_on_floor():
 		coyote_timer = COYOTE_TIME
-	elif was_on_floor:
-		coyote_timer -= delta
 	else:
-		coyote_timer -= delta
-	coyote_timer = maxf(coyote_timer, 0.0)
+		coyote_timer = maxf(coyote_timer - delta, 0.0)
 
 
 func _can_coyote_jump() -> bool:
@@ -73,8 +116,7 @@ func _handle_jump_buffer(delta: float) -> void:
 	if Input.is_action_just_pressed(jump):
 		jump_buffer_timer = JUMP_BUFFER_TIME
 	else:
-		jump_buffer_timer -= delta
-	jump_buffer_timer = maxf(jump_buffer_timer, 0.0)
+		jump_buffer_timer = maxf(jump_buffer_timer - delta, 0.0)
 
 
 # ── Wall hang ────────────────────────────────────────────────────
@@ -87,8 +129,8 @@ func _handle_wall_hang(delta: float) -> void:
 
 	if touching_wall and moving_into_wall and not is_on_floor() and velocity.y >= 0:
 		if not is_wall_hanging:
-			is_wall_hanging   = true
-			wall_hang_timer   = WALL_HANG_DURATION
+			is_wall_hanging     = true
+			wall_hang_timer     = WALL_HANG_DURATION
 			wall_hang_direction = -1 if is_on_wall_only() and velocity.x < 0 else 1
 		wall_hang_timer -= delta
 		if wall_hang_timer <= 0.0:
@@ -118,10 +160,7 @@ func _handle_horizontal_movement() -> void:
 func _handle_jump() -> void:
 	# Use only the buffer timer — it's set to JUMP_BUFFER_TIME on the
 	# exact frame just_pressed fires, so it covers that frame too.
-	# This prevents missed jumps when the floor/coyote check resolves
-	# one frame after the button press.
 	var wants_jump := jump_buffer_timer > 0.0
-
 	if not wants_jump:
 		return
 
@@ -138,9 +177,55 @@ func _handle_jump() -> void:
 		jump_buffer_timer = 0.0
 
 
+# ── Stomp (head-jump PvP kill) ────────────────────────────────────
+func _check_stomp() -> void:
+	if velocity.y < 0:
+		return  # only counts while falling
+
+	if debug_stomp and Engine.get_physics_frames() % 15 == 0:
+		# Sampled so it doesn't spam every single physics frame
+		print("[%s] falling, ray.enabled=%s ray.is_colliding=%s" % [
+			name, stomp_ray.enabled, stomp_ray.is_colliding()])
+
+	if not stomp_ray.is_colliding():
+		return
+
+	var hit_area := stomp_ray.get_collider()
+	if debug_stomp:
+		print("[%s] ray hit: %s (class %s)" % [
+			name, hit_area, hit_area.get_class() if hit_area else "null"])
+
+	if hit_area == null:
+		return
+
+	var other = hit_area.get_parent()
+	if debug_stomp:
+		print("[%s] parent of hit: %s | is self=%s | has stomp_die=%s" % [
+			name, other, other == self,
+			(is_instance_valid(other) and other.has_method("stomp_die"))])
+
+	if other == self or not is_instance_valid(other) or not other.has_method("stomp_die"):
+		return
+	if other.is_dead:
+		if debug_stomp:
+			print("[%s] target already dead, skipping" % name)
+		return
+
+	if debug_stomp:
+		print("[%s] STOMP confirmed on %s" % [name, other])
+
+	other.stomp_die()
+	velocity.y = STOMP_BOUNCE_VELOCITY
+
+
+func stomp_die() -> void:
+	health = 0
+	die()
+
+
 # ── Damage ───────────────────────────────────────────────────────
 func take_damage(enemy_position: Vector2 = Vector2.ZERO) -> void:
-	if is_invincible:
+	if is_invincible or is_dead:
 		return
 
 	health -= 1
@@ -164,28 +249,38 @@ func _start_invincibility() -> void:
 	tween.tween_property(sprite, "modulate:a", 0.2, 0.1)
 	tween.tween_property(sprite, "modulate:a", 1.0, 0.1)
 	await get_tree().create_timer(INVINCIBILITY_TIME).timeout
-	is_invincible = false
-	sprite.modulate.a = 1.0  # make sure it's fully visible
+	if not is_dead:
+		is_invincible = false
+		sprite.modulate.a = 1.0
 
 
 func die() -> void:
-	# Add your game-over logic here
+	if is_dead:
+		return
+	is_dead = true
+
 	print("Player died!")
-	get_tree().reload_current_scene()
+	set_physics_process(false)
+	velocity = Vector2.ZERO
+
+	# Take the corpse out of collision/stomp detection so it can't be
+	# hit or trigger stomps again, but keep the node around.
+	collision_shape.set_deferred("disabled", true)
+	hitbox.monitoring = false
+	hitbox.monitorable = false
+	stomp_ray.enabled = false
+	sprite.modulate.a = 0.4  # visual "downed" cue; swap for a death anim if you have one
+
+	# Uncomment when you're ready to wire up round-restart logic:
+	# get_tree().reload_current_scene()
 
 
 # ── Animation ────────────────────────────────────────────────────
 func _update_animation() -> void:
 	if reverse_sprite_facing:
-		if velocity.x > 0:
-			sprite.flip_h = true
-		elif velocity.x < 0:
-			sprite.flip_h = false
+		sprite.flip_h = velocity.x > 0
 	else:
-		if velocity.x > 0:
-			sprite.flip_h = false
-		elif velocity.x < 0:
-			sprite.flip_h = true
+		sprite.flip_h = velocity.x < 0
 
 	if is_wall_hanging:
 		sprite.play("wall_hang")

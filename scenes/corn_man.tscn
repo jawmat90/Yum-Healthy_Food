@@ -27,6 +27,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("11_rnxw7")
+}],
+"loop": 1,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("4_cw70d")
 }, {
 "duration": 1.0,
@@ -64,16 +72,39 @@ animations = [{
 radius = 8.0
 height = 18.0
 
-[node name="corn_man" type="CharacterBody2D" unique_id=454267213]
-collision_layer = 9
-collision_mask = 9
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gj7g4"]
+size = Vector2(12, 3)
+
+[node name="corn_man" type="CharacterBody2D" unique_id=454267213 groups=["Player"]]
+collision_layer = 25
+collision_mask = 25
 script = ExtResource("1_mkwpp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1161574681]
 sprite_frames = SubResource("SpriteFrames_54d4r")
-animation = &"idle"
+animation = &"jump"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2205594]
 position = Vector2(0, 5)
 shape = SubResource("CapsuleShape2D_j11r5")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=988423189]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=2058920095]
+position = Vector2(0, -3.5)
+shape = SubResource("RectangleShape2D_gj7g4")
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1255937535]
+unique_name_in_owner = true
+target_position = Vector2(0, 21)
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1300687745]
+visible = false
+position = Vector2(-4, 5)
+rect = Rect2(-10, -13, 26, 27)
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
