@@ -399,6 +399,9 @@ func _build_viewport(size: Vector2 = screen_size) -> SubViewportContainer:
 	viewport.set_handle_input_locally(false)
 
 	# Add the viewport and camera to the arrays, so they can be accessed later.
+	camera.limit_left = -660
+	camera.limit_right = 100
+	camera.limit_bottom = 220
 	cameras.append(camera)
 	viewports.append(viewport)
 	

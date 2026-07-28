@@ -21,16 +21,15 @@ max_players = 2
 metadata/_custom_type_script = "uid://ckremq1k6tr3s"
 
 [node name="map" parent="SplitScreen2D" unique_id=1416872027 instance=ExtResource("2_lnu2h")]
-position = Vector2(44, 33)
 
 [node name="sour_troop" parent="SplitScreen2D/map" unique_id=1862405829 instance=ExtResource("6_p57ef")]
-position = Vector2(-293, 102)
+position = Vector2(-293, 63)
 
 [node name="sour_troop3" parent="SplitScreen2D/map" unique_id=214297632 instance=ExtResource("6_p57ef")]
-position = Vector2(1626, 81)
+position = Vector2(1626, 42)
 
 [node name="sour_troop4" parent="SplitScreen2D/map" unique_id=756851633 instance=ExtResource("6_p57ef")]
-position = Vector2(2185, -15)
+position = Vector2(2185, -54)
 
 [node name="killzone" parent="SplitScreen2D/map" unique_id=1396131333 instance=ExtResource("8_gee14")]
 position = Vector2(630, 622)
@@ -39,13 +38,13 @@ position = Vector2(630, 622)
 shape = SubResource("WorldBoundaryShape2D_gee14")
 
 [node name="chicken_man" parent="SplitScreen2D" unique_id=1444778360 instance=ExtResource("3_lbhrr")]
-position = Vector2(-78, 149)
+position = Vector2(-78, 110)
 collision_layer = 9
 collision_mask = 9
 debug_stomp = true
 
 [node name="corn_man" parent="SplitScreen2D" unique_id=454267213 instance=ExtResource("4_iywne")]
-position = Vector2(-488, 151)
+position = Vector2(-488, 112)
 collision_layer = 17
 collision_mask = 17
 reverse_sprite_facing = true

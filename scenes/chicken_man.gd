@@ -42,6 +42,11 @@ var   wall_hang_direction := 0
 # ── Stomp (head-jump PvP kill) ────────────────────────────────────
 const STOMP_BOUNCE_VELOCITY := -350.0   # how high you pop up after stomping someone
 
+# ── Respawn ───────────────────────────────────────────────────────
+const RESPAWN_MIN_X       := -600.0
+const RESPAWN_MAX_X       := 70.0
+const RESPAWN_DROP_HEIGHT := -360.0  # how far above start_pos.y to drop from on respawn
+
 @onready var start_pos = global_position
 
 
@@ -71,7 +76,9 @@ func _ready() -> void:
 
 
 func reset() -> void:
-	global_position = start_pos
+	var spawn_x := randf_range(RESPAWN_MIN_X, RESPAWN_MAX_X)
+	global_position = Vector2(spawn_x, RESPAWN_DROP_HEIGHT)
+	velocity = Vector2.ZERO
 	health = MAX_HEALTH
 	is_invincible = false
 	is_dead = false
@@ -263,13 +270,15 @@ func die() -> void:
 	set_physics_process(false)
 	velocity = Vector2.ZERO
 
-	# Take the corpse out of collision/stomp detection so it can't be
-	# hit or trigger stomps again, but keep the node around.
 	collision_shape.set_deferred("disabled", true)
 	hitbox.monitoring = false
 	hitbox.monitorable = false
 	stomp_ray.enabled = false
-	sprite.modulate.a = 0.4  # visual "downed" cue; swap for a death anim if you have one
+	sprite.modulate.a = 0.4
+
+	# Auto-respawn after a short delay
+	await get_tree().create_timer(2.0).timeout
+	reset()
 
 	# Uncomment when you're ready to wire up round-restart logic:
 	# get_tree().reload_current_scene()
