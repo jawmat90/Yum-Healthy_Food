@@ -84,6 +84,7 @@ func reset() -> void:
 	is_dead = false
 	sprite.modulate.a = 1.0
 	sprite.visible = true
+	%RayCast2D.enabled = true
 	collision_shape.set_deferred("disabled", false)
 	hitbox.monitoring = true
 	hitbox.monitorable = true
