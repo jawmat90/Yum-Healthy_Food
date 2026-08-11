@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dwl4enewp8je3" path="res://scenes/map.gd" id="1_0cso3"]
 [ext_resource type="TileSet" uid="uid://c515n30paxuh" path="res://Tiles.tres" id="2_paxxb"]
+[ext_resource type="PackedScene" uid="uid://o87pmy1361ok" path="res://scenes/teleporter.tscn" id="3_gldc4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2klcf"]
 
@@ -30,4 +31,19 @@ position = Vector2(3794, 484)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2083727177]
 shape = SubResource("RectangleShape2D_2klcf")
 
+[node name="Teleporter2" parent="." unique_id=1286214441 node_paths=PackedStringArray("target") instance=ExtResource("3_gldc4")]
+position = Vector2(-576, -237)
+target = NodePath("../Teleporter")
+color = Color(1, 0.078431375, 0.05490196, 1)
+
+[node name="Teleporter" parent="." unique_id=33664671 node_paths=PackedStringArray("target") instance=ExtResource("3_gldc4")]
+position = Vector2(22, 115)
+target = NodePath("../Teleporter2")
+color = Color(1, 0.080084704, 0.056472585, 1)
+
+[node name="Exit" parent="Teleporter" index="1" unique_id=287183057]
+position = Vector2(-27, 0)
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+
+[editable path="Teleporter"]

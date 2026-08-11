@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://o87pmy1361ok"]
+
+[ext_resource type="Script" uid="uid://tdbbuhjjhy8" path="res://scenes/teleporter.gd" id="1_pce0k"]
+[ext_resource type="Texture2D" uid="uid://b6l8ahpxd5dkr" path="res://scenes/Dimensional_Portal.png" id="2_hkm18"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g4v7s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvw6r"]
+atlas = ExtResource("2_hkm18")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xcrn"]
+atlas = ExtResource("2_hkm18")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xllxu"]
+atlas = ExtResource("2_hkm18")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ogmxf"]
+atlas = ExtResource("2_hkm18")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bdjtf"]
+atlas = ExtResource("2_hkm18")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x00qv"]
+atlas = ExtResource("2_hkm18")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gvw6r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1xcrn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xllxu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ogmxf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bdjtf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x00qv")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Teleporter" type="Area2D" unique_id=1286214441]
+script = ExtResource("1_pce0k")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1635636421]
+shape = SubResource("CapsuleShape2D_g4v7s")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D" unique_id=1352890406]
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+autoplay = "default"
+
+[node name="Exit" type="Marker2D" parent="." unique_id=287183057]
+position = Vector2(21, 0)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
