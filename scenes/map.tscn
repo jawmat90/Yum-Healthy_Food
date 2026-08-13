@@ -33,12 +33,12 @@ position = Vector2(3794, 484)
 shape = SubResource("RectangleShape2D_2klcf")
 
 [node name="Teleporter2" parent="." unique_id=1286214441 node_paths=PackedStringArray("target") instance=ExtResource("3_gldc4")]
-position = Vector2(-576, -237)
+position = Vector2(-622, -186)
 target = NodePath("../Teleporter")
 color = Color(1, 0.078431375, 0.05490196, 1)
 
 [node name="Teleporter" parent="." unique_id=33664671 node_paths=PackedStringArray("target") instance=ExtResource("3_gldc4")]
-position = Vector2(22, 115)
+position = Vector2(30, 118)
 target = NodePath("../Teleporter2")
 color = Color(1, 0.080084704, 0.056472585, 1)
 
@@ -46,15 +46,15 @@ color = Color(1, 0.080084704, 0.056472585, 1)
 position = Vector2(-27, 0)
 
 [node name="Teleporter3" parent="." unique_id=293611530 node_paths=PackedStringArray("target") instance=ExtResource("3_gldc4")]
-position = Vector2(-617, 115)
+position = Vector2(-621, 119)
 target = NodePath("../Teleporter4")
 
 [node name="Teleporter4" parent="." unique_id=2101557780 node_paths=PackedStringArray("target") instance=ExtResource("3_gldc4")]
-position = Vector2(43, -232)
+position = Vector2(64, -217)
 target = NodePath("../Teleporter3")
 
 [node name="Exit" parent="Teleporter4" index="1" unique_id=287183057]
-position = Vector2(-29, 1)
+position = Vector2(-28, -10)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 
