@@ -10,6 +10,9 @@
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gee14"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_g4v7s"]
+font_size = 10
+
 [node name="game" type="Node2D" unique_id=1132626807]
 script = ExtResource("1_yqjtg")
 
@@ -26,10 +29,10 @@ metadata/_custom_type_script = "uid://ckremq1k6tr3s"
 position = Vector2(-293, 63)
 
 [node name="sour_troop3" parent="SplitScreen2D/map" unique_id=214297632 instance=ExtResource("6_p57ef")]
-position = Vector2(1626, 42)
+position = Vector2(-121, -83)
 
 [node name="sour_troop4" parent="SplitScreen2D/map" unique_id=756851633 instance=ExtResource("6_p57ef")]
-position = Vector2(2185, -54)
+position = Vector2(-462, -84)
 
 [node name="killzone" parent="SplitScreen2D/map" unique_id=1396131333 instance=ExtResource("8_gee14")]
 position = Vector2(630, 622)
@@ -37,18 +40,20 @@ position = Vector2(630, 622)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SplitScreen2D/map/killzone" unique_id=1646469302]
 shape = SubResource("WorldBoundaryShape2D_gee14")
 
-[node name="chicken_man" parent="SplitScreen2D" unique_id=1444778360 instance=ExtResource("3_lbhrr")]
+[node name="chicken_man" parent="SplitScreen2D" unique_id=1444778360 node_paths=PackedStringArray("score_counter") instance=ExtResource("3_lbhrr")]
 position = Vector2(-78, 110)
 collision_layer = 9
 collision_mask = 9
 debug_stomp = true
+score_counter = NodePath("../../CanvasLayer/chickencounter/Label")
 
-[node name="corn_man" parent="SplitScreen2D" unique_id=454267213 instance=ExtResource("4_iywne")]
+[node name="corn_man" parent="SplitScreen2D" unique_id=454267213 node_paths=PackedStringArray("score_counter") instance=ExtResource("4_iywne")]
 position = Vector2(-488, 112)
 collision_layer = 17
 collision_mask = 17
 reverse_sprite_facing = true
 debug_stomp = true
+score_counter = NodePath("../../CanvasLayer/corncounter/Label")
 left_key = "p2_left"
 right_key = "p2_right"
 jump = "p2_jump"
@@ -64,3 +69,95 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
+
+[node name="chickencounter" type="ColorRect" parent="CanvasLayer" unique_id=2088222306]
+offset_right = 35.0
+offset_bottom = 15.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/chickencounter" unique_id=9676257]
+layout_mode = 0
+offset_right = 35.0
+offset_bottom = 15.0
+text = "0"
+label_settings = SubResource("LabelSettings_g4v7s")
+horizontal_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/chickencounter" unique_id=1286079145]
+layout_mode = 0
+offset_right = 35.0
+offset_bottom = 1.0
+color = Color(0, 1, 0.11774111, 1)
+metadata/_edit_group_ = true
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/chickencounter" unique_id=1792299565]
+layout_mode = 0
+offset_top = 14.0
+offset_right = 35.0
+offset_bottom = 15.0
+color = Color(0, 1, 0.11774111, 1)
+metadata/_edit_group_ = true
+
+[node name="ColorRect3" type="ColorRect" parent="CanvasLayer/chickencounter" unique_id=1762653988]
+layout_mode = 0
+offset_top = 1.0
+offset_right = 1.0
+offset_bottom = 14.0
+color = Color(0, 1, 0.11774111, 1)
+metadata/_edit_group_ = true
+
+[node name="ColorRect4" type="ColorRect" parent="CanvasLayer/chickencounter" unique_id=564036324]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 1.0
+offset_right = 35.0
+offset_bottom = 14.0
+color = Color(0, 1, 0.11774111, 1)
+metadata/_edit_group_ = true
+
+[node name="corncounter" type="ColorRect" parent="CanvasLayer" unique_id=1038170489]
+offset_left = 365.0
+offset_top = 285.0
+offset_right = 400.0
+offset_bottom = 300.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/corncounter" unique_id=788185627]
+layout_mode = 0
+offset_right = 35.0
+offset_bottom = 15.0
+text = "0"
+label_settings = SubResource("LabelSettings_g4v7s")
+horizontal_alignment = 1
+
+[node name="ColorRect5" type="ColorRect" parent="CanvasLayer/corncounter" unique_id=1548099150]
+layout_mode = 0
+offset_top = 14.0
+offset_right = 35.0
+offset_bottom = 15.0
+color = Color(0, 1, 0.11774111, 1)
+metadata/_edit_group_ = true
+
+[node name="ColorRect4" type="ColorRect" parent="CanvasLayer/corncounter" unique_id=2023028902]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 1.0
+offset_right = 35.0
+offset_bottom = 14.0
+color = Color(0, 1, 0.11774111, 1)
+metadata/_edit_group_ = true
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/corncounter" unique_id=2022209725]
+layout_mode = 0
+offset_right = 35.0
+offset_bottom = 1.0
+color = Color(0, 1, 0.11774111, 1)
+metadata/_edit_group_ = true
+
+[node name="ColorRect3" type="ColorRect" parent="CanvasLayer/corncounter" unique_id=997741489]
+layout_mode = 0
+offset_top = 1.0
+offset_right = 1.0
+offset_bottom = 14.0
+color = Color(0, 1, 0.11774111, 1)
+metadata/_edit_group_ = true

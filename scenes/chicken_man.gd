@@ -7,7 +7,8 @@ extends CharacterBody2D
 @onready var stomp_ray: RayCast2D = %RayCast2D
 @export var reverse_sprite_facing : bool = false
 @export var debug_stomp : bool = false
-
+var score = 0
+@export var score_counter : Label
 # ── Speed & gravity ──────────────────────────────────────────────
 const SPEED          := 200.0
 const JUMP_VELOCITY  := -400.0
@@ -224,6 +225,9 @@ func _check_stomp() -> void:
 
 	other.stomp_die()
 	velocity.y = STOMP_BOUNCE_VELOCITY
+	score = score + 1
+	score_counter.text = str(score)
+
 
 
 func stomp_die() -> void:
