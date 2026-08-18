@@ -1,12 +1,31 @@
 [gd_scene format=3 uid="uid://cnon5i0ubh2gc"]
 
 [ext_resource type="Script" uid="uid://cpwp2frk2nel4" path="res://scenes/titlescreen.gd" id="1_3jj3l"]
-[ext_resource type="Texture2D" uid="uid://qd64xtrclu5t" path="res://Gemini_Generated_Image_5jz9hr5jz9hr5jz9.png" id="1_6d6rd"]
+[ext_resource type="Texture2D" uid="uid://mtky3kuv4amw" path="res://Little Chicken Assets/Chick/Gemini_Generated_Image_g0274wg0274wg027.jpg" id="2_3jj3l"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3jj3l"]
+font_size = 40
 
 [node name="Titlescreen" type="Node2D" unique_id=1281945608]
 script = ExtResource("1_3jj3l")
 
 [node name="picture" type="Sprite2D" parent="." unique_id=1188902546]
-position = Vector2(202.5, 151.99998)
-scale = Vector2(0.39384922, 0.2851675)
-texture = ExtResource("1_6d6rd")
+position = Vector2(200, 150)
+scale = Vector2(0.26791695, 0.2769887)
+texture = ExtResource("2_3jj3l")
+
+[node name="Label" type="Label" parent="picture" unique_id=1742524689]
+offset_left = -660.6525
+offset_top = 393.51785
+offset_right = 559.87506
+offset_bottom = 519.87683
+text = "CLICK ANYWHERE TO START"
+label_settings = SubResource("LabelSettings_3jj3l")
+
+[node name="Label2" type="Label" parent="picture" unique_id=651455472]
+offset_left = -645.7225
+offset_top = -483.7742
+offset_right = 574.8051
+offset_bottom = -357.41522
+text = "Who Came First?"
+label_settings = SubResource("LabelSettings_3jj3l")

@@ -1,25 +1,25 @@
 [gd_scene format=3 uid="uid://g0yk56yuupuv"]
 
 [ext_resource type="Script" uid="uid://bdnkwvqx32r3a" path="res://scenes/chicken_man.gd" id="1_mkwpp"]
-[ext_resource type="Texture2D" uid="uid://djjww252dx5vf" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 37/enemy_37_idle_1.png" id="2_gj7g4"]
-[ext_resource type="Texture2D" uid="uid://bdru0n6jqheyd" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 37/enemy_37_idle_2.png" id="3_7mneb"]
+[ext_resource type="Texture2D" uid="uid://dyepteje1sy6x" path="res://Little Chicken Assets/Chick/enemy_37_idle_1.png" id="2_mkwpp"]
+[ext_resource type="Texture2D" uid="uid://dh3a62ispsg50" path="res://Little Chicken Assets/Chick/enemy_37_idle_2.png" id="3_gj7g4"]
+[ext_resource type="Texture2D" uid="uid://c5sqnbhnlak3" path="res://Little Chicken Assets/Chick/enemy_37_walk_4.png" id="4_7mneb"]
 [ext_resource type="Texture2D" uid="uid://bmm01oh46tktl" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 37/enemy_37_run_1.png" id="4_cw70d"]
 [ext_resource type="Texture2D" uid="uid://dbynrhuk1a8jt" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 37/enemy_37_run_2.png" id="5_3ul65"]
 [ext_resource type="Texture2D" uid="uid://b64y1gc1yxw1m" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 37/enemy_37_run_3.png" id="6_dq776"]
 [ext_resource type="Texture2D" uid="uid://cbwpsfpnkqaa0" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 37/enemy_37_run_4.png" id="7_lgobi"]
-[ext_resource type="Texture2D" uid="uid://dpt2w87rshxjt" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 37/enemy_37_walk_1.png" id="8_fmmyi"]
-[ext_resource type="Texture2D" uid="uid://deg5ua0p7sl4y" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 37/enemy_37_walk_2.png" id="9_3cy14"]
-[ext_resource type="Texture2D" uid="uid://0h7mn1lst7b1" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 37/enemy_37_walk_3.png" id="10_xesb2"]
-[ext_resource type="Texture2D" uid="uid://h4idk5hu8d32" path="res://Candy's Quest Cakes Castle/Enemies/Enemy 37/enemy_37_walk_4.png" id="11_rnxw7"]
+[ext_resource type="Texture2D" uid="uid://kxlh0lb8evh0" path="res://Little Chicken Assets/Chick/enemy_37_walk_1.png" id="9_cw70d"]
+[ext_resource type="Texture2D" uid="uid://dtaad80cniwy7" path="res://Little Chicken Assets/Chick/enemy_37_walk_2.png" id="10_3ul65"]
+[ext_resource type="Texture2D" uid="uid://cn3w6yqt2nkyq" path="res://Little Chicken Assets/Chick/enemy_37_walk_3.png" id="11_dq776"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_54d4r"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_gj7g4")
+"texture": ExtResource("2_mkwpp")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_7mneb")
+"texture": ExtResource("3_gj7g4")
 }],
 "loop": 1,
 "name": &"idle",
@@ -27,7 +27,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("11_rnxw7")
+"texture": ExtResource("4_7mneb")
 }],
 "loop": 1,
 "name": &"jump",
@@ -52,16 +52,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("8_fmmyi")
+"texture": ExtResource("9_cw70d")
 }, {
 "duration": 1.0,
-"texture": ExtResource("9_3cy14")
+"texture": ExtResource("10_3ul65")
 }, {
 "duration": 1.0,
-"texture": ExtResource("10_xesb2")
+"texture": ExtResource("11_dq776")
 }, {
 "duration": 1.0,
-"texture": ExtResource("11_rnxw7")
+"texture": ExtResource("4_7mneb")
 }],
 "loop": 1,
 "name": &"walk",
@@ -82,7 +82,7 @@ script = ExtResource("1_mkwpp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1161574681]
 sprite_frames = SubResource("SpriteFrames_54d4r")
-animation = &"jump"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2205594]
