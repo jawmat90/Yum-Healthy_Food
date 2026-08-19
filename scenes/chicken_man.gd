@@ -227,6 +227,8 @@ func _check_stomp() -> void:
 	velocity.y = STOMP_BOUNCE_VELOCITY
 	score = score + 1
 	score_counter.text = str(score)
+	if score == 10:
+		get_tree().change_scene_to_file("res://scenes/winscreen.tscn")
 
 
 
