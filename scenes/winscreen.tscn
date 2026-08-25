@@ -1,20 +1,21 @@
 [gd_scene format=3 uid="uid://bg4n3obx3807m"]
 
 [ext_resource type="Script" uid="uid://fne6wy5hnsf7" path="res://winscreen.gd" id="1_wg0yv"]
-[ext_resource type="Texture2D" uid="uid://evkh56w8bsbi" path="res://scenes/Gemini_Generated_Image_iakt1viakt1viakt.png" id="2_unfcc"]
+[ext_resource type="Texture2D" uid="uid://dx6kj2fkwffs3" path="res://ChatGPT Image Aug 25, 2026, 09_30_20 AM.png" id="2_wg0yv"]
 
 [node name="winscreen" type="Node2D" unique_id=211944186]
 script = ExtResource("1_wg0yv")
 
 [node name="GeminiGeneratedImageIakt1Viakt1Viakt" type="Sprite2D" parent="." unique_id=490455443]
 position = Vector2(200.00003, 150)
-scale = Vector2(0.37735853, 0.30241933)
-texture = ExtResource("2_unfcc")
+scale = Vector2(0.218144, 0.17482305)
+texture = ExtResource("2_wg0yv")
 
 [node name="restart" type="Button" parent="GeminiGeneratedImageIakt1Viakt1Viakt" unique_id=80372136]
-offset_left = -95.63803
-offset_top = 378.26648
-offset_right = 151.32437
-offset_bottom = 454.22363
+offset_left = -128.35576
+offset_top = 286.00348
+offset_right = 151.27596
+offset_bottom = 429.0052
+text = "restart"
 
 [connection signal="pressed" from="GeminiGeneratedImageIakt1Viakt1Viakt/restart" to="." method="_on_restart_pressed"]
